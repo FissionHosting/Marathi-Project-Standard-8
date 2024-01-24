@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Matunga Lions Pioneer English School - Marathi Project | Standard 8</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            overflow: hidden; /* Hide horizontal scrollbar */
+        }
+
+        .content {
+            padding: 20px;
+            width: 100%;
+            background-color: #fff;
+            transition: transform 0.2s ease-out; /* Smooth transition for motion blur effect */
+            will-change: transform; /* Optimize for smoother animations */
+        }
+
+        /* Add your other styles here */
+
+        @keyframes blur {
+            from {
+                filter: blur(0);
+            }
+            to {
+                filter: blur(5px); /* Adjust the blur intensity */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-line"></div>
+    <div clas="content">
+    <div class="header">
+        <h1>Matunga Lions Pioneer English School</h1>
+        <p>Marathi Project | Standard 8</p>
+    </div>
+    <div id="quiz-container">
+        <div id="question">1. मंजर कसा बोलतोय?</div>
+        <div id="options">
+            <button class="option" onclick="checkAnswer(this, 1)">म्याव म्याव</button>
+            <button class="option" onclick="checkAnswer(this, 2)">भाऊ भाऊ</button>
+        </div>
+    </div>
+
+    <div id="quiz-container">
+        <div id="question">2. कुत्र कसा बोलतोय?</div>
+        <div id="options">
+            <button class="option" onclick="checkAnswer(this, 1)">भाऊ भाऊ</button>
+            <button class="option" onclick="checkAnswer(this, 2)">दाराव दाराव</button>
+        </div>
+    </div>
+
+    <div id="quiz-container">
+        <div id="question">3. बेडूक कसा बोलतोय?</div>
+        <div id="options">
+            <button class="option" onclick="checkAnswer(this, 2)">किलबिलाट</button>
+            <button class="option" onclick="checkAnswer(this, 1)">भयंकर</button>
+        </div>
+    </div>
+
+    <div id="quiz-container">
+        <div id="question">4. घोडा कसा बोलतोय?</div>
+        <div id="options">
+            <button class="option" onclick="checkAnswer(this, 2)">टुकूर टुकूर</button>
+            <button class="option" onclick="checkAnswer(this, 1)">खिंकरणे</button>
+        </div>
+    </div>
+
+    <div id="quiz-container">
+        <div id="question">5. गाय कशी बोलत?</div>
+        <div id="options">
+            <button class="option" onclick="checkAnswer(this, 2)">किलबिलाट</button>
+            <button class="option" onclick="checkAnswer(this, 1)">हंबरणे</button>
+        </div>
+    </div>
+</div>
+    <!-- Repeat the quiz-container for each question -->
+
+    <script>
+        var answeredQuestions = 0;
+
+        function checkAnswer(button, correctAnswer) {
+            var options = button.parentElement.getElementsByClassName('option');
+            for (var i = 0; i < options.length; i++) {
+                options[i].disabled = true;
+            }
+
+            if (correctAnswer === 1) {
+                playSound('sahi-jwaab.mp3');
+                button.style.backgroundColor = '#4CAF50'; // Green color for correct answer
+                showAnimatedEmoji('😊');
+            } else {
+                playSound('nahi.mp3');
+                button.style.backgroundColor = '#FF5252'; // Red color for incorrect answer
+                showAnimatedBomb('💣');
+            }
+
+            answeredQuestions++;
+            var totalQuestions = document.getElementsByClassName('quiz-container').length;
+
+            if (answeredQuestions === totalQuestions) {
+                playSound('7crore.mp3');
+            }
+        }
+
+        function playSound(soundFile) {
+            var audio = new Audio(soundFile);
+            
+            // Check if the audio file exists
+            audio.addEventListener('error', function() {
+                console.error('Error loading audio file:', soundFile);
+            });
+
+            // Play the audio
+            audio.play().catch(function(error) {
+                console.error('Error playing audio:', error);
+            });
+        }
+
+        function showAnimatedEmoji(emoji) {
+            var emojiDiv = document.createElement('div');
+            emojiDiv.innerHTML = emoji;
+            emojiDiv.className = 'animated-emoji';
+            document.body.appendChild(emojiDiv);
+
+            setTimeout(function () {
+                emojiDiv.remove();
+            }, 2000);
+        }
+
+        function showAnimatedBomb(emoji) {
+            var bombDiv = document.createElement('div');
+            bombDiv.innerHTML = emoji;
+            bombDiv.className = 'animated-bomb';
+            document.body.appendChild(bombDiv);
+
+            setTimeout(function () {
+                bombDiv.remove();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
